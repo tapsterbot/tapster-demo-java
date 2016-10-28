@@ -1,5 +1,7 @@
 # Java Examples for Tapster 2
 
+[![Controller Demo Video](https://img.youtube.com/vi/JQ-_l8UrPgM/0.jpg)](https://www.youtube.com/watch?v=JQ-_l8UrPgM)
+
 ## 1) Compile with dependencies included
     mvn clean compile assembly:single
 

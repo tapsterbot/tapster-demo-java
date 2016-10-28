@@ -1,9 +1,9 @@
 # Java Examples for Tapster 2
 
-# 1) Compile with dependencies included
+## 1) Compile with dependencies included
     mvn clean compile assembly:single
 
-# 2) Run
+## 2) Run
 (With no command line parameters, it will run the tap once demo...)
 
     java -jar target/tapster-demo-1.0.jar

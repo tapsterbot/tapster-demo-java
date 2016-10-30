@@ -1,0 +1,10 @@
+{
+  // The network location of the robot
+  "robotURL": "http://localhost:8080/",
+
+  // A safety height above the surface above the screen
+  "safetyHeight": -144.0,
+
+  // The surface of the screen
+  "surfaceHeight": -158.0
+}

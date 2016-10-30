@@ -1,16 +1,20 @@
 package io.tapster.demo;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.io.StringWriter;
-
 import com.google.gson.JsonObject;
 
 public class Robot {
+  private String robotURL;
+  private double safety;
+  private double surface;
+
+  public Robot(String url, double safetyHeight, double surfaceHeight) {
+    safety = safetyHeight;
+    surface = surfaceHeight;
+    robotURL = url;
+  }
 
   public void circle(double x,
                      double y,
@@ -44,13 +48,13 @@ public class Robot {
   public void square() {
       System.out.println("  Demo: Square");
       try {
-        go(0, 0,-145);
-        go(-20, 20, -155);
-        go(20, 20, -155);
-        go(20, -20, -155);
-        go(-20, -20, -155);
-        go(-20, 20, -155);
-        go(0, 0,-145);
+        go(0, 0, safety);
+        go(-20, 20, surface);
+        go(20, 20, surface);
+        go(20, -20, surface);
+        go(-20, -20, surface);
+        go(-20, 20, surface);
+        go(0, 0, safety);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -59,9 +63,9 @@ public class Robot {
   public void tap() {
       System.out.println("  Demo: Tap");
       try {
-        go(0, 0,-145);
-        go(0, 0, -155);
-        go(0, 0, -145);
+        go(0, 0, safety);
+        go(0, 0, surface);
+        go(0, 0, safety);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -70,11 +74,11 @@ public class Robot {
   public void triangle() {
       System.out.println("  Demo: Triangle");
       try {
-        go(0, 20, -155);
-        go(20, -20, -155);
-        go(-20, -20, -155);
-        go(0, 20, -155);
-        go(0, 0, -145);
+        go(0, 20, surface);
+        go(20, -20, surface);
+        go(-20, -20, surface);
+        go(0, 20, surface);
+        go(0, 0, safety);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -83,11 +87,11 @@ public class Robot {
   public void swipeUp() {
       System.out.println("  Demo: Swipe Up");
       try {
-        go(0, -20,-145);
-        go(0, -20, -155);
-        go(0, 20, -155);
-        go(0, 20, -145);
-        go(0, 0, -145);
+        go(0, -20, safety);
+        go(0, -20, surface);
+        go(0, 20, surface);
+        go(0, 20, safety);
+        go(0, 0, safety);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -96,11 +100,11 @@ public class Robot {
   public void swipeDown() {
       System.out.println("  Demo: Swipe Down");
       try {
-        go(0, 20,-145);
-        go(0, 20, -155);
-        go(0, -20, -155);
-        go(0, -20, -145);
-        go(0, 0, -145);
+        go(0, 20, safety);
+        go(0, 20, surface);
+        go(0, -20, surface);
+        go(0, -20, safety);
+        go(0, 0, safety);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -109,11 +113,11 @@ public class Robot {
   public void swipeLeft() {
       System.out.println("  Demo: Swipe Left");
       try {
-        go(20, 0,-145);
-        go(20, 0, -155);
-        go(-20, 0, -155);
-        go(-20, 0, -145);
-        go(0, 0, -145);
+        go(20, 0, safety);
+        go(20, 0, surface);
+        go(-20, 0, surface);
+        go(-20, 0, safety);
+        go(0, 0, safety);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -122,11 +126,11 @@ public class Robot {
   public void swipeRight() {
       System.out.println("  Demo: Swipe Right");
       try {
-        go(-20, 0,-145);
-        go(-20, 0, -155);
-        go(20, 0, -155);
-        go(20, 0, -145);
-        go(0, 0, -145);
+        go(-20, 0, safety);
+        go(-20, 0, surface);
+        go(20, 0, surface);
+        go(20, 0, safety);
+        go(0, 0, safety);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -148,7 +152,7 @@ public class Robot {
 
   public void sendCommand(String command, JsonObject object) {
     try {
-      URL url = new URL("http://localhost:8080/" + command);
+      URL url = new URL(robotURL + command);
 
       HttpURLConnection con = (HttpURLConnection) url.openConnection();
       con.setRequestMethod("POST");
@@ -172,4 +176,5 @@ public class Robot {
       e.printStackTrace();
     }
   }
+
 }

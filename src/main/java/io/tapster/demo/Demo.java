@@ -1,5 +1,11 @@
 package io.tapster.demo;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import java.io.IOException;
+import java.io.InputStream;
+import org.apache.commons.io.IOUtils;
+
 import io.tapster.demo.Robot;
 
 /*
@@ -8,8 +14,17 @@ import io.tapster.demo.Robot;
 public class Demo {
   public static void main( String[] args ) {
     try {
+      Demo demo = new Demo();
+      String config = demo.resourceToString("/config.json");
+      JsonObject object = new Gson().fromJson(config, JsonObject.class);
+
+      String robotURL = object.get("robotURL").getAsString();
+      double safetyHeight = object.get("safetyHeight").getAsDouble();
+      double surfaceHeight = object.get("surfaceHeight").getAsDouble();
+
+      Robot robot = new Robot(robotURL, safetyHeight, surfaceHeight);
+
       System.out.println( "Tapster Robot - Examples" );
-      Robot robot = new Robot();
 
       if (args.length > 0) {
         String example = args[0];
@@ -28,7 +43,7 @@ public class Demo {
               }
             }
           }
-          robot.circle(0.0, 0.0, -150.0, 20.0, speed, 5, direction);
+          robot.circle(0.0, 0.0, surfaceHeight, 20.0, speed, 5, direction);
         } else if (example.equals("square")) {
           robot.square();
         } else if (example.equals("tap")) {
@@ -44,15 +59,22 @@ public class Demo {
         } else if (example.equals("swipeRight")) {
           robot.swipeRight();
         }
-
       } else {
         robot.tap();
       }
-
     } catch (Exception e) {
       e.printStackTrace();
     }
   }
+
+  private String resourceToString(String filePath) {
+      try {
+        InputStream inputStream = this.getClass().getResourceAsStream(filePath);
+        return IOUtils.toString(inputStream, "UTF-8");
+      } catch (IOException e) {
+        e.printStackTrace();
+        System.exit(1);
+        return "";
+      }
+  }
 }
-
-

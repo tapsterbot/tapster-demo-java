@@ -1,9 +1,10 @@
 package io.tapster.demo;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import java.io.IOException;
 import java.io.InputStream;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.apache.commons.io.IOUtils;
 
 import io.tapster.demo.Robot;

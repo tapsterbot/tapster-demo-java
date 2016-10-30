@@ -3,6 +3,7 @@ package io.tapster.demo;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 import com.google.gson.JsonObject;
 
 public class Robot {
@@ -11,9 +12,9 @@ public class Robot {
   private double surface;
 
   public Robot(String url, double safetyHeight, double surfaceHeight) {
+    robotURL = url;
     safety = safetyHeight;
     surface = surfaceHeight;
-    robotURL = url;
   }
 
   public void circle(double x,

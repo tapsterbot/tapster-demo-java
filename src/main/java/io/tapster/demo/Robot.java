@@ -1,6 +1,7 @@
 package io.tapster.demo;
 
 import java.io.OutputStream;
+import java.lang.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -17,17 +18,18 @@ public class Robot {
     surface = surfaceHeight;
   }
 
-  public void circle(double x,
-                     double y,
-                     double z,
-                     double radius,
-                     double speed,
-                     int rotations,
-                     String direction) {
-      if (direction.equals("cw")) {
-        System.out.println("  Demo: Circle - Clockwise");
+  public void arc(double x,
+                  double y,
+                  double z,
+                  double radius,
+                  double startAngle,
+                  double endAngle,
+                  boolean anticlockwise,
+                  double delay) {
+      if (anticlockwise == false) {
+        System.out.println("  Demo: Arc - Clockwise");
       } else {
-        System.out.println("  Demo: Circle - Counterclockwise");
+        System.out.println("  Demo: Arc - Anticlockwise");
       }
       try {
         JsonObject obj = new JsonObject();
@@ -35,9 +37,60 @@ public class Robot {
         obj.addProperty("y", y);
         obj.addProperty("z", z);
         obj.addProperty("radius", radius);
-        obj.addProperty("speed", speed);
+        obj.addProperty("startAngle", startAngle);
+        obj.addProperty("endAngle", endAngle);
+        obj.addProperty("anticlockwise", anticlockwise);
+        obj.addProperty("delay", delay);
+
+        // Go to saftey position
+        go(0, 0, safety);
+
+        // Go to start position
+        double startX = x + radius * Math.cos(startAngle);
+        double startY = y + radius * Math.sin(startAngle);
+        go(startX, startY, safety);
+        go(startX, startY, surface);
+
+        // Draw the arc
+        sendCommand("arc", obj);
+
+        // Go to end safety position
+        double endX = x + radius * Math.cos(endAngle);
+        double endY = y + radius * Math.sin(endAngle);
+        go(endX, endY, surface);
+        go(endX, endY, safety);
+
+        // Go back to safety position
+        go(0, 0, safety);
+
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+  }
+
+  public void circle(double x,
+                     double y,
+                     double z,
+                     double radius,
+                     double startAngle,
+                     boolean anticlockwise,
+                     double delay,
+                     int rotations) {
+      if (anticlockwise == false) {
+        System.out.println("  Demo: Circle - Clockwise");
+      } else {
+        System.out.println("  Demo: Circle - Anticlockwise");
+      }
+      try {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("x", x);
+        obj.addProperty("y", y);
+        obj.addProperty("z", z);
+        obj.addProperty("radius", radius);
+        obj.addProperty("startAngle", startAngle);
+        obj.addProperty("anticlockwise", anticlockwise);
+        obj.addProperty("delay", delay);
         obj.addProperty("rotations", rotations);
-        obj.addProperty("direction", direction);
 
         sendCommand("circle", obj);
 

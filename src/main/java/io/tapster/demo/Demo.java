@@ -30,21 +30,24 @@ public class Demo {
       if (args.length > 0) {
         String example = args[0];
         if (example.equals("circle")) {
-          String direction = "cw";
-          double speed = 1.5;
+          boolean anticlockwise = false;
+          double delay = 5;
           if (args.length > 1) {
-            String directionArg = args[1];
-            if (directionArg.equals("ccw")) {
-              direction = "ccw";
+            String anticlockwiseArg = args[1];
+            if (anticlockwiseArg.equals("true")) {
+              anticlockwise = true;
             }
             if (args.length > 2) {
-              String speedArg = args[2];
-              if (speedArg.equals("slow")) {
-                speed = 3.5;
+              String delayArg = args[2];
+              if (delayArg.equals("slow")) {
+                delay = 10;
               }
             }
           }
-          robot.circle(0.0, 0.0, surfaceHeight, 20.0, speed, 5, direction);
+          robot.circle(0.0, 0.0, surfaceHeight, 20.0, 0, anticlockwise, delay, 5);
+
+        } else if (example.equals("arc")) {
+          robot.arc(0.0, 0.0, surfaceHeight, 20.0, 6.28/4, 6.28/2, false, 5);
         } else if (example.equals("square")) {
           robot.square();
         } else if (example.equals("tap")) {

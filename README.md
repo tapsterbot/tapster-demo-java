@@ -15,6 +15,9 @@
 ## Tap once
     java -jar target/tapster-demo-1.0.jar tap
 
+## Draw an arc
+    java -jar target/tapster-demo-1.0.jar arc
+
 ## Draw a square
     java -jar target/tapster-demo-1.0.jar square
 
@@ -23,16 +26,16 @@
 
 ## Draw 5 circles clockwise
     java -jar target/tapster-demo-1.0.jar circle
-    java -jar target/tapster-demo-1.0.jar circle cw
+    java -jar target/tapster-demo-1.0.jar circle false
 
 ## Draw 5 circles clockwise, slowly
-    java -jar target/tapster-demo-1.0.jar circle cw slow
+    java -jar target/tapster-demo-1.0.jar circle false slow
 
-## Draw 5 circles counterclockwise
-    java -jar target/tapster-demo-1.0.jar circle ccw
+## Draw 5 circles anticlockwise
+    java -jar target/tapster-demo-1.0.jar circle true
 
-## Draw 5 circles counterclockwise, slowly
-    java -jar target/tapster-demo-1.0.jar circle ccw slow
+## Draw 5 circles anticlockwise, slowly
+    java -jar target/tapster-demo-1.0.jar circle true slow
 
 ## Swipe Up
     java -jar target/tapster-demo-1.0.jar swipeUp
